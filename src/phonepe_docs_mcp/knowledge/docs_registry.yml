@@ -1,0 +1,357 @@
+# ============================================================
+# PhonePe PG Documentation Registry
+# ============================================================
+# This file is the single source of truth for all doc URLs
+# served by the MCP.  Edit it freely — no code changes needed.
+#
+# FORMAT
+# ------
+# Each entry is:
+#   section_key: /url-path-relative-to-developer.phonepe.com
+#
+# Section keys must be unique and may only contain:
+#   a-z, A-Z, 0-9, hyphen -, forward-slash /
+#
+# The MCP loads this file at startup.  To add a new section:
+#   1. Paste the URL path below (with or without the base host)
+#   2. Choose a descriptive section_key
+#   3. Restart the MCP server (pip install -e . or restart process)
+#
+# BASE URL: https://developer.phonepe.com
+#
+# SKIPPED (old/deprecated, DO NOT re-add):
+#   /old-docs/*, /v4-debit-sdkless, /upi-collect-new-update,
+#   /ios-container-for-sdk-integration, /android-pg-sdk-setup,
+#   /enable-upi-payments-within-an-ios-webview,
+#   /enable-upi-payments-within-an-android-webview
+#   All #nav-... anchor fragments (same page as base URL)
+# ============================================================
+
+sections:
+
+  # ──────────────────────────────────────────────────────────
+  # PUBLIC SECTIONS  (reachable via developer.phonepe.com nav)
+  # ──────────────────────────────────────────────────────────
+
+  public:
+
+    # Overview
+    overview: /payment-gateway
+
+    # ── Standard Checkout — Website ──────────────────────────
+    website/standard-checkout/overview: /payment-gateway/website-integration/standard-checkout/api-integration/api-integration-website
+    website/standard-checkout/integration-steps: /payment-gateway/website-integration/standard-checkout/api-integration/integration-steps
+    website/standard-checkout/authorization: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/authorization
+    website/standard-checkout/create-payment: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment
+    website/standard-checkout/invoke-iframe: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/invoke-iframe-paypage
+    website/standard-checkout/order-status: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/order-status
+    website/standard-checkout/order-status-with-settlement: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/order-status-with-settlement
+    website/standard-checkout/webhook: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/webhook
+    website/standard-checkout/refund: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/refund
+    website/standard-checkout/uat-checklist: /payment-gateway/uat-testing-go-live/uat-checklist
+    website/standard-checkout/uat-sandbox: /payment-gateway/uat-testing-go-live/uat-sandbox
+    website/standard-checkout/go-live: /payment-gateway/uat-testing-go-live/go-live
+
+    # ── E-commerce Plugins ───────────────────────────────────
+    plugins/woocommerce: /payment-gateway/e-commerce-plugins/woocommerce
+    plugins/shopify: /payment-gateway/e-commerce-plugins/shopify
+    # plugins/magento: removed — URL returns 404
+
+    # ── Payment Links ────────────────────────────────────────
+    payment-links/introduction: /payment-gateway/payment-links/introduction
+    # payment-links/api: removed — URL returns 404
+    payment-links/authorization: /payment-gateway/payment-links/api-reference-payment-links/authorization
+    payment-links/create: /payment-gateway/payment-links/api-reference-payment-links/create-payment-links
+    payment-links/status: /payment-gateway/payment-links/api-reference-payment-links/payment-link-status
+    payment-links/cancel: /payment-gateway/payment-links/api-reference-payment-links/cancel
+    payment-links/notify: /payment-gateway/payment-links/api-reference-payment-links/notify
+    payment-links/webhook: /payment-gateway/payment-links/api-reference-payment-links/webhook
+
+    # ── Standard Checkout — Mobile SDK (Android) ─────────────
+    sdk/mobile-standard/android/introduction: /payment-gateway/mobile-app-integration/standard-checkout-mobile/android-sdk/introduction
+    sdk/mobile-standard/android/sdk-setup: /payment-gateway/mobile-app-integration/standard-checkout-mobile/android-sdk/sdk-setup
+    sdk/mobile-standard/android/authorization: /payment-gateway/mobile-app-integration/standard-checkout-mobile/api-reference/authorization
+    sdk/mobile-standard/android/create-order-token: /payment-gateway/mobile-app-integration/standard-checkout-mobile/api-reference/create-order-token
+    sdk/mobile-standard/android/order-status: /payment-gateway/mobile-app-integration/standard-checkout-mobile/api-reference/check-order-status
+    sdk/mobile-standard/android/webhook: /payment-gateway/mobile-app-integration/standard-checkout-mobile/webhook-handling
+    sdk/mobile-standard/android/refund: /payment-gateway/mobile-app-integration/standard-checkout-mobile/api-reference/refund
+
+    # ── Standard Checkout — Mobile SDK (iOS) ─────────────────
+    sdk/mobile-standard/ios/introduction: /payment-gateway/mobile-app-integration/standard-checkout-mobile/ios/introduction
+    sdk/mobile-standard/ios/sdk-setup: /payment-gateway/mobile-app-integration/standard-checkout-mobile/ios/sdk-setup
+
+    # ── Standard Checkout — Hybrid Mobile SDKs ───────────────
+    sdk/mobile-standard/react-native: /payment-gateway/mobile-app-integration/standard-checkout-mobile/react-native/introduction
+    sdk/mobile-standard/ionic: /payment-gateway/mobile-app-integration/standard-checkout-mobile/ionic/introduction
+    sdk/mobile-standard/flutter: /payment-gateway/mobile-app-integration/standard-checkout-mobile/flutter/introduction
+
+    # ── Standard Checkout — Backend SDKs ─────────────────────
+    sdk/backend-standard/java/introduction: /payment-gateway/backend-sdk/java-be-sdk/introduction
+    sdk/backend-standard/java/create-order: /payment-gateway/backend-sdk/java-be-sdk/sdk-reference-java/create-sdk-order
+    sdk/backend-standard/java/class-init: /payment-gateway/backend-sdk/java-be-sdk/sdk-reference-java/class-initialization
+    sdk/backend-standard/java/order-status: /payment-gateway/backend-sdk/java-be-sdk/sdk-reference-java/order-status
+    sdk/backend-standard/java/webhook: /payment-gateway/backend-sdk/java-be-sdk/sdk-reference-java/webhook-handling
+    sdk/backend-standard/java/refund: /payment-gateway/backend-sdk/java-be-sdk/sdk-reference-java/refund
+
+    sdk/backend-standard/python/introduction: /payment-gateway/backend-sdk/python-be-sdk/introduction
+    sdk/backend-standard/python/create-order: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/create-sdk-order
+    sdk/backend-standard/python/class-init: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/class-initialization
+    sdk/backend-standard/python/initiate-payment: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/initiate-payment
+    sdk/backend-standard/python/order-status: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/order-status
+    sdk/backend-standard/python/webhook: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/webhook-handling
+    sdk/backend-standard/python/refund: /payment-gateway/backend-sdk/python-be-sdk/sdk-reference-python/refund
+
+    sdk/backend-standard/nodejs/introduction: /payment-gateway/backend-sdk/nodejs-be-sdk/introduction
+    sdk/backend-standard/nodejs/create-order: /payment-gateway/backend-sdk/nodejs-be-sdk/api-reference-node-js/create-sdk-order
+    sdk/backend-standard/nodejs/class-init: /payment-gateway/backend-sdk/nodejs-be-sdk/api-reference-node-js/class-initialization
+    sdk/backend-standard/nodejs/initiate-payment: /payment-gateway/backend-sdk/nodejs-be-sdk/api-reference-node-js/initiate-payment
+    sdk/backend-standard/nodejs/webhook: /payment-gateway/backend-sdk/nodejs-be-sdk/api-reference-node-js/webhook-handling
+    sdk/backend-standard/nodejs/refund: /payment-gateway/backend-sdk/nodejs-be-sdk/api-reference-node-js/refund
+
+    sdk/backend-standard/php/introduction: /payment-gateway/backend-sdk/php-be-sdk/introduction
+    sdk/backend-standard/php/class-init: /payment-gateway/backend-sdk/php-be-sdk/sdk-reference-php/class-initialization
+    sdk/backend-standard/php/initiate-payment: /payment-gateway/backend-sdk/php-be-sdk/sdk-reference-php/initiate-payment
+    sdk/backend-standard/php/order-status: /payment-gateway/backend-sdk/php-be-sdk/sdk-reference-php/order-status
+    sdk/backend-standard/php/webhook: /payment-gateway/backend-sdk/php-be-sdk/sdk-reference-php/webhook-handling
+    sdk/backend-standard/php/refund: /payment-gateway/backend-sdk/php-be-sdk/sdk-reference-php/refund
+
+    # ── AutoPay / UPI Recurring ───────────────────────────────
+    autopay/standard-checkout/introduction: /payment-gateway/autopay/standard-checkout/introduction
+    # autopay/standard-checkout/apis: removed — URL returns 404
+    autopay/api-integration/introduction: /payment-gateway/autopay/api-integration/introduction
+    autopay/api/authorization: /payment-gateway/autopay/api-integration/api-reference/authorization
+    autopay/api/subscription-setup: /payment-gateway/autopay/api-integration/api-reference/subscription-setup
+    autopay/api/subscription-setup-tpv: /payment-gateway/autopay/api-integration/api-reference/subscription-setuptvp
+    autopay/api/order-status: /payment-gateway/autopay/api-integration/api-reference/order-status
+    autopay/api/subscription-status: /payment-gateway/autopay/api-integration/api-reference/subscription-status
+    autopay/api/webhook: /payment-gateway/autopay/webhook
+    autopay/api/redemption-notify: /payment-gateway/autopay/api-integration/api-reference/redemption-notify
+    autopay/api/redemption-execute: /payment-gateway/autopay/api-integration/api-reference/redemption-execute
+    autopay/api/upi-address-validate: /payment-gateway/autopay/api-integration/api-reference/upi-address-validate-api
+    autopay/api/subscription-cancel: /payment-gateway/autopay/api-integration/api-reference/subscription-cancel
+    autopay/api/subscription-pause-unpause: /payment-gateway/autopay/api-integration/api-reference/subscription-pause-unpause
+    autopay/api/subscription-revoke: /payment-gateway/autopay/api-integration/api-reference/subscription-revoke
+    autopay/api/refund: /payment-gateway/autopay/api-integration/api-reference/refund
+    autopay/api/order-status-with-settlement: /payment-gateway/autopay/api-integration/api-reference/subscription-order-status-with-settlement-details
+    autopay/uat-sandbox: /payment-gateway/autopay/uat-sandbox
+
+    # ── AutoPay Backend SDKs ──────────────────────────────────
+    autopay/sdk/java/introduction: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/introduction
+    autopay/sdk/java/class-init: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/class-initialization
+    autopay/sdk/java/subscription-setup: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/subscription-setup
+    autopay/sdk/java/subscription-notify: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/subscription-notify
+    autopay/sdk/java/subscription-redeem: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/subscription-redeem
+    autopay/sdk/java/subscription-cancel: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/subscription-cancellation
+    autopay/sdk/java/subscription-status: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/subscription-status
+    autopay/sdk/java/order-status: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/order-status
+    autopay/sdk/java/refund: /payment-gateway/autopay/autopay-backend-sdk/java-sdk-autopay/refund
+
+    autopay/sdk/python/introduction: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/introduction
+    autopay/sdk/python/class-init: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/class-initialization
+    autopay/sdk/python/subscription-setup: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-setup
+    autopay/sdk/python/subscription-notify: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-notify
+    autopay/sdk/python/subscription-redeem: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-redeem
+    autopay/sdk/python/subscription-cancel: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-cancellation
+    autopay/sdk/python/subscription-status: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-status
+    autopay/sdk/python/order-status: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/subscription-order-status
+    autopay/sdk/python/refund: /payment-gateway/autopay/autopay-backend-sdk/python-sdk-autopay/refund
+
+  # ──────────────────────────────────────────────────────────
+  # ADDITIONAL SECTIONS
+  # ──────────────────────────────────────────────────────────
+  # Extended integration docs and supplementary pages.
+  # Add new section URLs here.
+  # ──────────────────────────────────────────────────────────
+
+  additional:
+
+    # ── Integration Entry / Overview pages (phonepe-payment-gateway/ base) ──
+    v2-overview/standard-checkout: /phonepe-payment-gateway/pg-v2-standard-checkout-integration
+    v2-overview/custom-checkout: /phonepe-payment-gateway/pg-v2-custom-checkout-integration
+    v2-overview/payment-links: /phonepe-payment-gateway/pg-v2-payment-links
+    v2-overview/android-sdk-standard: /phonepe-payment-gateway/pg-v2-android-sdk-standard
+    v2-overview/ios-sdk-standard: /phonepe-payment-gateway/pg-v2-ios-sdk-standard
+    v2-overview/android-sdk-custom: /phonepe-payment-gateway/pg-v2-android-sdk-custom
+    v2-overview/ios-sdk-custom: /phonepe-payment-gateway/pg-v2-ios-sdk-custom
+    v2-overview/backend-sdk-standard: /phonepe-payment-gateway/pg-v2-backend-sdk-standard
+    v2-overview/autopay-custom-checkout: /phonepe-payment-gateway/autopay-custom-checkout
+    v2-overview/autopay-standard-checkout: /phonepe-payment-gateway/autopay-standard-checkout
+    v2-overview/autopay-backend-sdk: /phonepe-payment-gateway/autopay-v2-backend-sdk
+    v2-overview/chargeback: /phonepe-payment-gateway/charge-back
+    v2-overview/enach: /phonepe-payment-gateway/enach
+    v2-overview/settlement: /phonepe-payment-gateway/settlement
+    v2-overview/native-otp: /phonepe-payment-gateway/native-otp
+    v2-overview/split-settlement: /phonepe-payment-gateway/split-settlement
+
+    # ── Custom Checkout V2 — API Integration ─────────────────
+    # Discovered at: /phonepe-payment-gateway/pg-v2-custom-checkout-integration/
+    # Uses /payment-gateway-custom-checkout/ base (not in main nav)
+    custom-checkout-v2/introduction: /payment-gateway-custom-checkout/custom-api-integration/introduction-api-integration-custom
+    custom-checkout-v2/integration-steps: /payment-gateway-custom-checkout/custom-api-integration/custom-integration-steps
+    custom-checkout-v2/authorization: /payment-gateway-custom-checkout/custom-api-integration/authorization
+    custom-checkout-v2/pay/upi-intent: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/upi-intent
+    custom-checkout-v2/pay/upi-address-validate: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/upi-collect-api/upi-address-validate-api
+    custom-checkout-v2/pay/upi-collect: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/upi-collect-api/upi-collect
+    custom-checkout-v2/pay/upi-qr: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/upi-qr
+    custom-checkout-v2/pay/card: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/card
+    custom-checkout-v2/pay/token: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/token
+    custom-checkout-v2/pay/netbanking: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/netbanking
+    custom-checkout-v2/pay/tpv-authorization: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment-tpv/authorization
+    custom-checkout-v2/order-status: /payment-gateway-custom-checkout/custom-api-integration/order-status-api
+    custom-checkout-v2/order-status-with-settlement: /payment-gateway-custom-checkout/custom-api-integration/order-status-with-settlement
+    custom-checkout-v2/webhook: /payment-gateway-custom-checkout/custom-api-integration/webhook
+    custom-checkout-v2/refund: /payment-gateway-custom-checkout/custom-api-integration/refund-api
+    custom-checkout-v2/pg-availability-check: /payment-gateway-custom-checkout/custom-api-integration/pg-availability-check
+    custom-checkout-v2/supported-netbanking: /payment-gateway-custom-checkout/custom-api-integration/supported-netbanking
+    custom-checkout-v2/uat-checklist: /payment-gateway-custom-checkout/uat-testing-go-live/uat-checklist
+    custom-checkout-v2/uat-sandbox: /payment-gateway-custom-checkout/uat-testing-go-live/uat-sandbox
+    custom-checkout-v2/go-live: /payment-gateway-custom-checkout/uat-testing-go-live/go-live
+
+    # ── Custom Checkout V2 — Mobile SDK (Android) ────────────
+    custom-checkout-v2/mobile/android/introduction: /payment-gateway-custom-checkout/mobile-app-integration/android-sdk/introduction
+    custom-checkout-v2/mobile/android/sdk-setup: /payment-gateway-custom-checkout/mobile-app-integration/android-sdk/sdk-setup
+    custom-checkout-v2/mobile/android/authorization: /payment-gateway-custom-checkout/mobile-app-integration/api-reference/authorization
+    custom-checkout-v2/mobile/android/create-sdk-order: /payment-gateway-custom-checkout/mobile-app-integration/api-reference/create-sdk-order
+    custom-checkout-v2/mobile/android/order-status: /payment-gateway-custom-checkout/mobile-app-integration/api-reference/order-status
+    custom-checkout-v2/mobile/android/webhook: /payment-gateway-custom-checkout/mobile-app-integration/webhook-handling
+    custom-checkout-v2/mobile/android/refund: /payment-gateway-custom-checkout/mobile-app-integration/api-reference/refund
+    custom-checkout-v2/mobile/android/upi-address-validate: /payment-gateway-custom-checkout/mobile-app-integration/api-reference/upi-address-validate-api
+    custom-checkout-v2/mobile/android/sdkless: /payment-gateway-custom-checkout/mobile-app-integration/android-pg-sdkless-integration
+
+    # ── Custom Checkout V2 — Mobile SDK (iOS) ────────────────
+    custom-checkout-v2/mobile/ios/introduction: /payment-gateway-custom-checkout/mobile-app-integration/ios-sdk/introduction
+    custom-checkout-v2/mobile/ios/sdk-setup: /payment-gateway-custom-checkout/mobile-app-integration/ios-sdk/sdk-setup
+    custom-checkout-v2/mobile/ios/sdkless: /payment-gateway-custom-checkout/mobile-app-integration/ios-pg-sdkless-integration
+
+    # ── Custom Checkout V2 — Hybrid Mobile SDKs ──────────────
+    custom-checkout-v2/mobile/react-native: /payment-gateway-custom-checkout/mobile-app-integration/react-native-sdk/introduction
+    custom-checkout-v2/mobile/ionic: /payment-gateway-custom-checkout/mobile-app-integration/ionic-sdk/introduction
+    custom-checkout-v2/mobile/flutter: /payment-gateway-custom-checkout/mobile-app-integration/flutter-sdk/introduction
+
+    # ── Custom Checkout V2 — Backend SDK (Java) ──────────────
+    custom-checkout-v2/sdk/java/installation: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/installation
+    custom-checkout-v2/sdk/java/create-order: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/create-sdk-order
+    custom-checkout-v2/sdk/java/class-init: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/class-initialization
+    custom-checkout-v2/sdk/java/upi-intent: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/pay-instruments/upi-intent
+    custom-checkout-v2/sdk/java/order-status: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/order-status
+    custom-checkout-v2/sdk/java/webhook: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/webhook-handling
+    custom-checkout-v2/sdk/java/refund: /payment-gateway-custom-checkout/backend-sdk/java-backend-sdk/java-sdk-reference/refund
+
+    # ── Custom Checkout V2 — Backend SDK (Python) ────────────
+    custom-checkout-v2/sdk/python/installation: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/installation
+    custom-checkout-v2/sdk/python/create-order: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/create-sdk-order
+    custom-checkout-v2/sdk/python/class-init: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/class-initialization
+    custom-checkout-v2/sdk/python/upi-intent: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/pay-instruments/upi-intent
+    custom-checkout-v2/sdk/python/order-status: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/order-status
+    custom-checkout-v2/sdk/python/webhook: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/webhook-handling
+    custom-checkout-v2/sdk/python/refund: /payment-gateway-custom-checkout/backend-sdk/python-backend-sdk/python-sdk-reference/refund
+
+    # ── Custom Checkout V2 — Backend SDK (NodeJS) ────────────
+    custom-checkout-v2/sdk/nodejs/installation: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/installation
+    custom-checkout-v2/sdk/nodejs/create-order: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/create-sdk-order
+    custom-checkout-v2/sdk/nodejs/class-init: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/class-initialization
+    custom-checkout-v2/sdk/nodejs/upi-intent: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/pay-instruments/upi-intent
+    custom-checkout-v2/sdk/nodejs/order-status: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/order-status
+    custom-checkout-v2/sdk/nodejs/webhook: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/webhook-handling
+    custom-checkout-v2/sdk/nodejs/refund: /payment-gateway-custom-checkout/backend-sdk/nodejs-backend-sdk/nodejs-sdk-reference/refund
+
+    # ── Android Native SDK (Payment Options) ─────────────────
+    android-native-sdk/overview: /android-native-sdk
+    android-native-sdk/authorization: /android-native-sdk/authorization
+    android-native-sdk/fetch-saved-instruments: /android-native-sdk/fetch-saved-instruments-token-api
+    android-native-sdk/create-order: /android-native-sdk/create-order
+    android-native-sdk/sdk-setup: /android-native-sdk/sdk-setup
+    android-native-sdk/get-user-instruments: /android-native-sdk/get-user-instruments
+    android-native-sdk/initiate-payment: /android-native-sdk/initiate-payment
+    android-native-sdk/order-status: /android-native-sdk/order-status
+    android-native-sdk/transaction-status: /android-native-sdk/transaction-status
+    android-native-sdk/webhook: /android-native-sdk/webhooks-handling
+    android-native-sdk/refund: /android-native-sdk/refund
+    android-native-sdk/refund-status: /android-native-sdk/refund-status
+    android-native-sdk/uat-sandbox: /android-native-sdk/uat-sandbox
+    android-native-sdk/go-live: /android-native-sdk/how-to-go-live
+
+    # ── iOS Native SDK (Payment Options) ─────────────────────
+    ios-native-sdk/overview: /ios-native-sdk
+    ios-native-sdk/authorization: /ios-native-sdk/authorization
+    ios-native-sdk/fetch-saved-instruments: /ios-native-sdk/fetch-saved-instruments-token-api
+    ios-native-sdk/create-order: /ios-native-sdk/create-order
+    ios-native-sdk/sdk-setup: /ios-native-sdk/sdk-setup
+    ios-native-sdk/get-user-instruments: /ios-native-sdk/get-user-instruments
+    ios-native-sdk/initiate-payment: /ios-native-sdk/initiate-payment
+    ios-native-sdk/order-status: /ios-native-sdk/order-status
+    ios-native-sdk/transaction-status: /ios-native-sdk/transaction-status
+    ios-native-sdk/webhook: /ios-native-sdk/webhooks-handling
+    ios-native-sdk/refund: /ios-native-sdk/refund
+    ios-native-sdk/refund-status: /ios-native-sdk/refund-status
+    ios-native-sdk/uat-sandbox: /ios-native-sdk/uat-sandbox
+    ios-native-sdk/go-live: /ios-native-sdk/how-to-go-live
+
+    # ── PG Health Check ───────────────────────────────────────
+    health-check/overview: /pg-health-check
+    health-check/authorization: /pg-health-check/authorization
+    health-check/health-check-api: /pg-health-check/health-check
+    health-check/webhook: /pg-health-check/health-check-webhook
+    health-check/uat-sandbox: /pg-health-check/uat-sandbox
+    health-check/faqs: /pg-health-check/faqs
+
+    # ── TSP Integration (Third-Party Service Providers) ───────
+    tsp/overview: /tsp-integration
+    tsp/headers/authorization: /tsp-integration/tsp-headers/authorization
+    tsp/headers/standard-checkout: /tsp-integration/tsp-headers/http-headers-standard
+    tsp/headers/custom-checkout: /tsp-integration/tsp-headers/http-headers-custom
+    tsp/webhook/fetch: /tsp-integration/tsp-webhook/fetch-webhook-api
+    tsp/webhook/create: /tsp-integration/tsp-webhook/create-webhook-api
+    tsp/webhook/update: /tsp-integration/tsp-webhook/update-webhook-api
+    tsp/webhook/list: /tsp-integration/tsp-webhook/list-webhook-api
+    tsp/webhook/delete: /tsp-integration/tsp-webhook/delete-webhook-api
+
+    # ── Settlement ────────────────────────────────────────────
+    settlement/date-range-ids: /settlement/date-range-based-settlement-ids
+    settlement/status: /settlement/settlement-status
+    settlement/webhook: /settlement/settlement-webhooks
+    settlement/uat-sandbox: /settlement/uat-sandbox
+
+    # ── Split Settlement ──────────────────────────────────────
+    split-settlement/authorization: /split-settlement/authorization
+    split-settlement/get-account-info: /split-settlement/get-split-account-info
+    split-settlement/validation: /split-settlement/split-validation
+    split-settlement/standard/initiate-payment: /split-settlement/standard-split-settlement/initiate-payment-with-splitinfo
+    split-settlement/standard/order-status: /split-settlement/standard-split-settlement/order-status-with-splitinfo
+    split-settlement/webhook: /split-settlement/webhook-handling
+    split-settlement/custom/initiate-payment: /split-settlement/custom-split-settlement/initiate-payment-with-splitinfo/upi-intent
+    split-settlement/custom/order-status: /split-settlement/custom-split-settlement/order-status-with-splitinfo
+    split-settlement/custom/order-status-with-settlement: /split-settlement/custom-split-settlement/order-status-with-settlement-for-split
+    split-settlement/settlement-status: /split-settlement/settlement/settlement-status
+    split-settlement/settlement-webhook: /split-settlement/settlement/settlement-webhook
+
+    # ── Chargeback ────────────────────────────────────────────
+    chargeback/overview: /chargeback
+    chargeback/authorization: /chargeback/authorization
+    chargeback/fetch-dispute: /chargeback/fetch-dispute
+    chargeback/fetch-list: /chargeback/fetch-list-of-disputes
+    chargeback/accept: /chargeback/accept-dispute
+    chargeback/contest: /chargeback/contest-dispute
+    chargeback/upload-evidence: /chargeback/upload-evidence
+    chargeback/delete-evidence: /chargeback/delete-evidence
+    chargeback/webhook: /chargeback/webhook-handling
+    chargeback/uat-sandbox: /chargeback/uat-sandbox
+
+    # ── Native OTP ────────────────────────────────────────────
+    native-otp/authorization: /native-otp/authorization
+    native-otp/submit-otp: /native-otp/submit-otp
+    native-otp/resend-otp: /native-otp/resend-otp
+    native-otp/sample-payload: /native-otp/sample-payload
+    native-otp/uat-sandbox: /native-otp/uat-sandbox
+
+    # ── TPV (Third Party Validation) ─────────────────────────
+    tpv/standard-checkout: /tpv-standard-checkout
+
+    # ── Aggregator APIs ───────────────────────────────────────
+    aggregator/overview: /api-for-aggregators
+
+    # ─────────────────────────────────────────────────────────
+    # ADD NEW SECTIONS BELOW THIS LINE
+    # Example:
+    #   my-section/guide: /payment-gateway/some/path
+    # ─────────────────────────────────────────────────────────

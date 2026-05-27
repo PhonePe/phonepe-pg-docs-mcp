@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "phonepe-pg-docs-mcp"
+version = "1.0.0"
+description = "MCP server that scrapes PhonePe Payment Gateway developer documentation and answers API integration questions"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [
+    { name = "PhonePe Engineering", email = "pg-developer@phonepe.com" }
+]
+keywords = [
+    "mcp", "model-context-protocol", "phonepe", "payment-gateway",
+    "documentation", "ai-agent", "llm-tools", "developer-docs"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Office/Business :: Financial",
+]
+dependencies = [
+    "mcp[cli]>=1.3.0,<2.0.0",
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/phonepe/phonepe-pg-docs-mcp"
+Repository = "https://github.com/phonepe/phonepe-pg-docs-mcp"
+Documentation = "https://developer.phonepe.com"
+"Bug Tracker" = "https://github.com/phonepe/phonepe-pg-docs-mcp/issues"
+Changelog = "https://github.com/phonepe/phonepe-pg-docs-mcp/blob/main/CHANGELOG.md"
+
+[project.scripts]
+phonepe-pg-docs = "phonepe_docs_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/phonepe_docs_mcp"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/phonepe_docs_mcp/knowledge/doc_index.db" = "phonepe_docs_mcp/knowledge/doc_index.db"
+"src/phonepe_docs_mcp/knowledge/knowledge_base.yml" = "phonepe_docs_mcp/knowledge/knowledge_base.yml"
+"src/phonepe_docs_mcp/knowledge/docs_registry.yml" = "phonepe_docs_mcp/knowledge/docs_registry.yml"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "docs_registry.yml",
+    "scripts/",
+    "README.md",
+    "CHANGELOG.md",
+    "pyproject.toml",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-mock>=3.12",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
