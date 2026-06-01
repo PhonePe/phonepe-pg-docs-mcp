@@ -47,6 +47,11 @@ Changelog = "https://github.com/phonepe/phonepe-pg-docs-mcp/blob/main/CHANGELOG.
 [project.scripts]
 phonepe-pg-docs = "phonepe_docs_mcp.server:main"
 
+[tool.hatch.build]
+artifacts = [
+    "src/phonepe_docs_mcp/knowledge/doc_index.db",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/phonepe_docs_mcp"]
 
