@@ -1,0 +1,785 @@
+# ============================================================
+# PhonePe PG — Centralized Knowledge Base
+# ============================================================
+# Maintained manually by the PhonePe MCP developer team.
+# Covers product catalogue, feature support, FAQs, error codes,
+# and API quick reference for ALL PhonePe PG products in production.
+#
+# This file answers questions that cannot be reliably scraped from
+# developer docs alone — e.g. "does PhonePe support international
+# payments?" or "what products does PhonePe PG have?"
+#
+# To update: edit this file and cut a new PyPI release.
+# ============================================================
+
+meta:
+  last_updated: "2025-05-12"
+  version: "1.0"
+  base_developer_url: "https://developer.phonepe.com"
+
+# ──────────────────────────────────────────────────────────────
+# PRODUCTS IN PRODUCTION
+# ──────────────────────────────────────────────────────────────
+products:
+
+  standard_checkout:
+    name: "Standard Checkout"
+    status: live
+    permission_required: false
+    description: >
+      PhonePe-hosted payment page. Merchant creates an order via API, receives a
+      redirectUrl, and opens it using the PhonePe JS SDK. PhonePe handles the entire
+      payment UI — UPI, cards, netbanking, and wallets.
+    use_cases:
+      - One-time payments on websites
+      - Mobile webview payments
+    supported_channels: [UPI, CARD, NET_BANKING, WALLET]
+    doc_sections:
+      - website/standard-checkout/overview
+      - website/standard-checkout/create-payment
+
+  custom_checkout:
+    name: "Custom Checkout"
+    status: live
+    permission_required: true
+    permission_name: "Custom Checkout"
+    description: >
+      Merchant controls the payment UI. Supports UPI QR, UPI Intent (deep-link to any
+      UPI app), UPI Collect (push to customer VPA), Cards (with/without tokenisation),
+      Net Banking, and saved instrument tokens.
+    use_cases:
+      - Mobile apps (Android/iOS) wanting native UPI deep-link
+      - Web apps needing a custom-branded checkout UI
+      - Scan-and-pay QR integration
+    supported_channels: [UPI_QR, UPI_INTENT, UPI_COLLECT, CARD, NET_BANKING, TOKEN]
+    doc_sections:
+      - custom-checkout-v2/introduction
+      - custom-checkout-v2/pay/upi-intent
+      - custom-checkout-v2/pay/upi-qr
+
+  payment_links:
+    name: "Payment Links"
+    status: live
+    permission_required: true
+    permission_name: "Payment Links"
+    description: >
+      Generate a shareable URL that allows a customer to pay without any integration on
+      the merchant's checkout page. Customer clicks the link and pays on PhonePe's hosted
+      page. Supports expiry, SMS/email notification, and link cancellation.
+    use_cases:
+      - Collect one-time payments without a website
+      - Invoice or bill payment via WhatsApp/SMS
+      - Offline business payment collection
+    doc_sections:
+      - payment-links/introduction
+      - payment-links/create
+
+  autopay_standard:
+    name: "AutoPay — Standard Checkout"
+    status: live
+    permission_required: true
+    permission_name: "AutoPay"
+    description: >
+      UPI Autopay mandate setup using PhonePe's hosted UI and JS SDK. Merchant sets up
+      a recurring mandate; PhonePe handles VPA/bank account selection. Supports fixed and
+      variable amount mandates.
+    use_cases:
+      - Subscription billing (OTT, SaaS)
+      - EMI deductions
+      - Insurance premium collection
+    supported_frequencies: [DAILY, WEEKLY, MONTHLY, YEARLY, AS_PRESENTED]
+    doc_sections:
+      - autopay/standard-checkout/introduction
+      - autopay/api/subscription-setup
+
+  autopay_custom:
+    name: "AutoPay — Custom Checkout"
+    status: live
+    permission_required: true
+    permission_name: "AutoPay + Custom Checkout (both required)"
+    description: >
+      UPI Autopay mandate setup where the merchant controls the UI. Supports UPI_INTENT
+      (deep-link) and UPI_COLLECT (push to VPA). Merchant must have both AutoPay AND
+      Custom Checkout permissions enabled independently.
+    doc_sections:
+      - v2-overview/autopay-custom-checkout
+
+  payment_links_api:
+    name: "Payment Links API"
+    status: live
+    permission_required: true
+    permission_name: "Payment Links"
+    description: >
+      API-driven Payment Links. Create, check status, cancel, and resend links
+      programmatically. Supports setting expiry time (max 30 days), customer details,
+      and notification via SMS/email.
+    doc_sections:
+      - payment-links/authorization
+      - payment-links/create
+      - payment-links/status
+
+  split_settlement:
+    name: "Split Settlement"
+    status: live
+    permission_required: true
+    permission_name: "Split Settlement"
+    description: >
+      Split a single payment across multiple accounts (marketplace model). Merchant
+      specifies split amounts and beneficiary account details at the time of initiating
+      payment. Supported for both Standard and Custom Checkout.
+    use_cases:
+      - Marketplace payouts to sellers
+      - Aggregator models
+    doc_sections:
+      - split-settlement/authorization
+      - split-settlement/standard/initiate-payment
+
+  settlement_api:
+    name: "Settlement API"
+    status: live
+    permission_required: true
+    permission_name: "Settlement API"
+    description: >
+      Query settlement details by date range. Fetch settlement status and receive
+      settlement webhook notifications when funds are settled to your bank account.
+    doc_sections:
+      - settlement/date-range-ids
+      - settlement/status
+
+  chargeback_api:
+    name: "Chargeback Management API"
+    status: live
+    permission_required: true
+    permission_name: "Chargeback API"
+    description: >
+      Programmatically manage card payment chargebacks. Fetch dispute details, accept or
+      contest disputes, and upload/delete supporting evidence. Webhook notifications for
+      chargeback status changes.
+    doc_sections:
+      - chargeback/overview
+      - chargeback/fetch-dispute
+      - chargeback/accept
+
+  pg_health_check:
+    name: "PG Health Check"
+    status: live
+    permission_required: true
+    permission_name: "PG Health Check"
+    description: >
+      Check UPI and payment gateway availability in real time. Designed for subscription
+      merchants who need to verify UPI health before initiating mandate redemption.
+      Includes webhook callbacks for health status changes.
+    doc_sections:
+      - health-check/health-check-api
+
+  native_otp:
+    name: "Native OTP"
+    status: live
+    permission_required: true
+    permission_name: "Native OTP"
+    description: >
+      Submit card OTP natively within the merchant app without redirecting to a bank
+      page. Reduces drop-off during card transactions by keeping the customer inside
+      the merchant app.
+    doc_sections:
+      - native-otp/submit-otp
+
+  tpv:
+    name: "Third Party Validation (TPV)"
+    status: live
+    permission_required: true
+    permission_name: "TPV"
+    description: >
+      Validates that the customer's bank account matches a registered account. Used
+      by stock brokers and SEBI-regulated entities to ensure UPI payments come from
+      verified accounts only.
+    doc_sections:
+      - tpv/standard-checkout
+      - custom-checkout-v2/pay/tpv-authorization
+
+  tsp_integration:
+    name: "TSP Integration"
+    status: live
+    permission_required: true
+    permission_name: "TSP (Technology Service Provider)"
+    description: >
+      Enables TSPs (payment aggregators/technology providers) to integrate PhonePe PG
+      on behalf of their sub-merchants. TSP-specific HTTP headers are required in API
+      calls. Webhook management APIs available.
+    doc_sections:
+      - tsp/overview
+      - tsp/headers/standard-checkout
+
+  android_native_sdk:
+    name: "Android Native SDK (Payment Options)"
+    status: live
+    permission_required: true
+    permission_name: "Android Native SDK"
+    description: >
+      Native Android SDK that displays PhonePe's payment options UI (saved instruments,
+      UPI, cards) within a merchant Android app. Supports fetching saved instruments
+      and initiating payments with tokenised cards.
+    doc_sections:
+      - android-native-sdk/overview
+
+  ios_native_sdk:
+    name: "iOS Native SDK (Payment Options)"
+    status: live
+    permission_required: true
+    permission_name: "iOS Native SDK"
+    description: >
+      Native iOS SDK equivalent of Android Native SDK. Displays payment options within
+      a merchant iOS app.
+    doc_sections:
+      - ios-native-sdk/overview
+
+  enach:
+    name: "eNACH"
+    status: live
+    permission_required: true
+    permission_name: "eNACH"
+    description: >
+      Electronic National Automated Clearing House — bank mandate for recurring
+      deductions directly from a bank account (not UPI). Suitable for larger recurring
+      amounts where UPI mandate limits apply.
+    doc_sections:
+      - v2-overview/enach
+
+# ──────────────────────────────────────────────────────────────
+# FEATURE SUPPORT MATRIX
+# ──────────────────────────────────────────────────────────────
+feature_matrix:
+
+  international_payments:
+    supported: false
+    notes: >
+      PhonePe PG supports INR (Indian Rupee) payments only within India.
+      International cards issued outside India may work for online transactions
+      but the settlement is always in INR.
+
+  supported_currencies:
+    values: [INR]
+    notes: "Only Indian Rupee (INR) is supported."
+
+  supported_payment_modes:
+    values:
+      - UPI_QR
+      - UPI_INTENT
+      - UPI_COLLECT
+      - CARD
+      - NET_BANKING
+      - WALLET
+      - ENACH
+    notes: "Available modes depend on the integration type and merchant permissions."
+
+  card_networks:
+    values: [VISA, MASTERCARD, RUPAY, AMEX]
+    notes: "Domestic and international cards supported for online card payments."
+
+  refunds:
+    supported: true
+    partial_refund: true
+    notes: >
+      Both full and partial refunds supported. Refund state starts as PENDING and
+      becomes COMPLETED or FAILED asynchronously. Use a unique merchantRefundId per refund.
+
+  webhooks:
+    supported: true
+    notes: >
+      Webhook callbacks supported for payment status, refund status, subscription
+      events, settlement, chargeback, and PG health changes.
+
+  saved_instruments:
+    supported: true
+    notes: "Supported via Android/iOS Native SDK and Custom Checkout TOKEN payment mode."
+
+  emi:
+    supported: false
+    notes: "EMI as a payment mode is not available via standard PhonePe PG APIs as of May 2025."
+
+  wallet_payments:
+    supported: true
+    notes: "PhonePe wallet and third-party wallets supported via Standard Checkout."
+
+  minimum_transaction_amount:
+    value_paisa: 100
+    value_inr: "₹1"
+
+  maximum_transaction_amount:
+    notes: "No hard API limit; bank and UPI limits apply (UPI single transaction limit: ₹1 lakh for most banks)."
+
+  upi_autopay_mandate_limit:
+    value_inr: "₹1 lakh per transaction"
+    notes: "NPCI-mandated per-transaction UPI Autopay limit."
+
+  sandbox_environment:
+    supported: true
+    url: "https://api-preprod.phonepe.com/apis/pg-sandbox/"
+    notes: "Full-featured sandbox; no real money transacted."
+
+  pci_dss_compliance:
+    merchant_required: false
+    notes: >
+      PhonePe handles PCI DSS compliance. Card data never touches merchant servers
+      in Standard Checkout. Custom Checkout with direct card entry may require
+      merchant PCI compliance — consult PhonePe team.
+
+  recurring_payments:
+    supported: true
+    methods: ["UPI AutoPay (Standard Checkout)", "UPI AutoPay (Custom Checkout)", "eNACH"]
+
+  mobile_sdk:
+    android: true
+    ios: true
+    flutter: true
+    react_native: true
+    ionic: true
+    notes: "All major mobile platforms supported."
+
+  backend_sdk:
+    java: true
+    python: true
+    nodejs: true
+    php: true
+    dotnet: false
+    notes: ".NET SDK not available as of May 2025; use raw API calls."
+
+# ──────────────────────────────────────────────────────────────
+# FREQUENTLY ASKED QUESTIONS
+# ──────────────────────────────────────────────────────────────
+faqs:
+
+  # — Product / Feature Existence —
+  - id: faq_intl_payments
+    category: features
+    keywords: [international, foreign, global, USD, EUR, currency]
+    q: "Does PhonePe PG support international payments?"
+    a: >
+      No. PhonePe PG supports INR (Indian Rupee) payments only within India.
+      There is no support for foreign currency transactions or cross-border payments.
+
+  - id: faq_payment_links
+    category: products
+    keywords: [payment link, shareable link, no-code payment, invoice, link]
+    q: "Does PhonePe have a Payment Links product?"
+    a: >
+      Yes. PhonePe PG has a Payment Links product that allows you to generate a
+      shareable URL for collecting payments without a checkout integration. Links
+      support expiry times (up to 30 days), customer details, and SMS/email
+      notification. Requires the Payment Links permission — contact your PhonePe
+      account manager to enable it.
+
+  - id: faq_recurring
+    category: products
+    keywords: [recurring, subscription, autopay, mandate, emi, billing, deduction]
+    q: "Does PhonePe support recurring / subscription payments?"
+    a: >
+      Yes. PhonePe PG supports recurring payments via:
+      1. UPI AutoPay (Standard Checkout) — PhonePe-hosted mandate setup UI.
+      2. UPI AutoPay (Custom Checkout) — Merchant-controlled UI, UPI Intent or Collect.
+      3. eNACH — bank mandate for direct debit (larger amounts beyond UPI limit).
+      All recurring flows require additional permissions from the PhonePe team.
+
+  - id: faq_standard_vs_custom
+    category: integration
+    keywords: [standard checkout, custom checkout, difference, which to use, checkout type]
+    q: "What is the difference between Standard Checkout and Custom Checkout?"
+    a: >
+      Standard Checkout: PhonePe hosts the entire payment UI (UPI, cards, netbanking, wallets).
+      Merchant only creates an order and opens the redirectUrl via the PhonePe JS SDK.
+      No custom UI work needed. Available by default to all merchants.
+
+      Custom Checkout: Merchant builds and controls the payment UI. Supports UPI QR,
+      UPI Intent deep-link, UPI Collect (push to VPA), Cards, Net Banking, and tokens.
+      Requires Custom Checkout permission from the PhonePe team.
+
+      Rule of thumb: Use Standard Checkout for quickest integration. Use Custom Checkout
+      when you need full UI control or a native mobile UPI deep-link experience.
+
+  - id: faq_order_states
+    category: api
+    keywords: [order state, order status, pending, completed, failed, payment state]
+    q: "What are the different states of a PhonePe payment order?"
+    a: >
+      PhonePe payment order states:
+      - PENDING: Order created, payment not yet completed.
+      - COMPLETED: Payment successfully received.
+      - FAILED: Payment failed or expired.
+
+      Payment Link states additionally include:
+      - ACTIVE: Link is live and can be used.
+      - EXPIRED: Link has passed its expiry time.
+      - CANCELLED: Link was cancelled by the merchant.
+
+      Subscription/AutoPay mandate states:
+      - ACTIVE: Mandate is live and can be used for deductions.
+      - PAUSED: Mandate temporarily paused by merchant.
+      - CANCELLED: Mandate permanently cancelled.
+      - REVOKED: Mandate revoked by the customer via their UPI app.
+
+  - id: faq_refund_states
+    category: api
+    keywords: [refund state, refund status, refund pending]
+    q: "What are the different states of a PhonePe refund?"
+    a: >
+      Refund states:
+      - PENDING: Refund initiated and queued; typically resolves within 5-7 business days.
+      - COMPLETED: Refund successfully credited to the customer.
+      - FAILED: Refund could not be processed; contact PhonePe support with the refundId.
+      Refunds are always asynchronous — the initial state is always PENDING.
+
+  - id: faq_credentials
+    category: setup
+    keywords: [client id, client secret, credentials, api key, how to get, dashboard]
+    q: "How do I get PhonePe PG API credentials?"
+    a: >
+      PhonePe PG API credentials (Client ID, Client Secret, Client Version) are provided
+      by the PhonePe onboarding team when you register as a merchant.
+      Steps:
+      1. Apply at https://www.phonepe.com/business/
+      2. Complete merchant KYC and onboarding.
+      3. Receive credentials from the PhonePe PG team.
+      4. Use sandbox credentials for testing — no real money is transacted.
+
+  - id: faq_webhook
+    category: integration
+    keywords: [webhook, callback, notification, payment update, push notification]
+    q: "Does PhonePe PG support webhooks for payment status?"
+    a: >
+      Yes. PhonePe PG supports webhook callbacks for:
+      - Payment completion (Standard and Custom Checkout)
+      - Refund status updates
+      - AutoPay mandate setup and redemption events
+      - Payment Link payment
+      - Settlement completion
+      - Chargeback status changes
+      - PG health status changes (for health check subscribers)
+      Webhook payload is sent as a POST to your configured callback URL.
+
+  - id: faq_chargeback
+    category: api
+    keywords: [chargeback, dispute, card dispute, chargeback api, contest]
+    q: "What API is used to check or manage chargebacks?"
+    a: >
+      PhonePe provides a Chargeback Management API. Key endpoints:
+      - Fetch dispute: GET /chargeback/fetch-dispute
+      - List disputes: GET /chargeback/fetch-list-of-disputes
+      - Accept dispute: POST /chargeback/accept-dispute
+      - Contest dispute: POST /chargeback/contest-dispute
+      - Upload evidence: POST /chargeback/upload-evidence
+      - Chargeback webhook for status updates
+      Requires the Chargeback API permission. Only applies to card transactions.
+      Use get_section_content('chargeback/fetch-dispute') for full API details.
+
+  - id: faq_order_status_api
+    category: api
+    keywords: [order status, check payment, payment status, get order, status api]
+    q: "What API is used to check order/payment status?"
+    a: >
+      GET /checkout/v2/order/{merchantOrderId}/status
+      - Works for Standard Checkout, Custom Checkout, and Payment Link orders.
+      - Base URL: sandbox → api-preprod.phonepe.com/apis/pg-sandbox/, production → api.phonepe.com/apis/pg/
+      - Returns: orderId, state (PENDING/COMPLETED/FAILED), amount, paymentDetails list.
+      Use get_section_content('website/standard-checkout/order-status') for full schema.
+
+  - id: faq_upi_apps
+    category: integration
+    keywords: [upi app, gpay, google pay, paytm, bhim, phonepe app, target app, which app]
+    q: "Which UPI apps can be targeted with UPI Intent?"
+    a: >
+      Android (use package name as targetApp):
+      - PhonePe: com.phonepe.app
+      - Google Pay: com.google.android.apps.nbu.paisa.user
+      - Paytm: net.one97.paytm
+      - BHIM: in.org.npci.upiapp
+      - Amazon Pay: in.amazon.mshop.android.shopping
+      iOS (use constant string as targetApp):
+      - PHONEPE, GPAY, PAYTM, CRED, BHIM, AMAZON, SUPERMONEY
+      Use list_doc_sections and get_section_content('custom-checkout-v2/pay/upi-intent') for full list.
+
+  - id: faq_upi_collect_vs_intent
+    category: integration
+    keywords: [upi collect, upi intent, collect vs intent, vpa, upi id, difference]
+    q: "What is the difference between UPI Collect and UPI Intent?"
+    a: >
+      UPI Intent: Deep-link that opens a specific UPI app on the customer's device.
+      Customer approves payment inside their UPI app. Best for mobile apps where
+      PhonePe/GPay is installed.
+
+      UPI Collect: PhonePe sends a collect request to the customer's VPA (UPI ID e.g.
+      customer@upi). Customer receives it in their UPI app and approves. Best for web
+      checkouts where you can collect a UPI ID from the customer.
+
+  - id: faq_min_amount
+    category: api
+    keywords: [minimum amount, minimum payment, smallest transaction, 1 rupee]
+    q: "What is the minimum payment amount for PhonePe PG?"
+    a: "The minimum payment amount is ₹1 (100 paisa)."
+
+  - id: faq_sandbox
+    category: setup
+    keywords: [sandbox, test, testing, test credentials, test payment, no real money]
+    q: "How do I test PhonePe PG without real money?"
+    a: >
+      Use the PhonePe sandbox environment:
+      - Sandbox base URL: https://api-preprod.phonepe.com/apis/pg-sandbox/
+      - OAuth token URL: https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token
+      - Use sandbox credentials provided during onboarding (separate from production).
+      - No real money is transacted.
+      - Test card numbers, UPI VPAs, and scenarios available in the UAT sandbox guide.
+      Use get_section_content('website/standard-checkout/uat-sandbox') for test details.
+
+  - id: faq_oauth_token
+    category: api
+    keywords: [oauth, token, authorization, access token, bearer, o-bearer]
+    q: "How does PhonePe PG authentication work?"
+    a: >
+      PhonePe PG uses OAuth 2.0 client credentials flow.
+      1. POST /v1/oauth/token with client_id, client_secret, client_version, grant_type=client_credentials
+      2. Receive access_token + expires_at (Unix epoch seconds)
+      3. Use Authorization: O-Bearer {access_token} header on all API calls
+      4. Cache the token; refresh 60 seconds before expires_at
+      Note: Production auth URL is different from other APIs:
+        Auth: https://api.phonepe.com/apis/identity-manager/v1/oauth/token
+        Other: https://api.phonepe.com/apis/pg/...
+
+  - id: faq_split_settlement
+    category: products
+    keywords: [split, marketplace, split payment, multi-party, seller, commission]
+    q: "Does PhonePe PG support split settlements for marketplaces?"
+    a: >
+      Yes. PhonePe PG has a Split Settlement feature where a single payment can be split
+      across multiple beneficiary accounts at the time of transaction initiation.
+      Supports both Standard Checkout and Custom Checkout (UPI Intent).
+      Requires the Split Settlement permission from PhonePe.
+
+  - id: faq_pci
+    category: integration
+    keywords: [pci, pci dss, compliance, card data, security]
+    q: "Do I need PCI DSS compliance to use PhonePe PG?"
+    a: >
+      For Standard Checkout: No. PhonePe hosts the payment UI and card data never
+      touches merchant servers. PhonePe maintains PCI DSS compliance on your behalf.
+      For Custom Checkout with direct card entry: Consult with the PhonePe team.
+      Tokenised card flows reduce PCI scope significantly.
+
+# ──────────────────────────────────────────────────────────────
+# ERROR CODES
+# ──────────────────────────────────────────────────────────────
+error_codes:
+
+  AUTHORIZATION_FAILED:
+    http_status: 401
+    cause: "Expired or invalid OAuth access token."
+    resolution: >
+      Re-fetch the OAuth token using /v1/oauth/token. Ensure client_id, client_secret,
+      and client_version are correct. Cache the new token and retry the API call once.
+
+  INVALID_TRANSACTION_ID:
+    http_status: 400
+    cause: "The provided merchantOrderId or transactionId does not exist or is malformed."
+    resolution: >
+      Verify the merchantOrderId used to create the order matches exactly. IDs are
+      case-sensitive and limited to 63 chars (alphanumeric + _ -).
+
+  BAD_REQUEST:
+    http_status: 400
+    cause: "Required field missing, type mismatch, or constraint violation in request."
+    resolution: >
+      Check the API documentation for required fields. Common issues: amount not in paisa,
+      missing merchantOrderId, invalid redirect URL, or amount exceeding refund eligibility.
+
+  FORBIDDEN:
+    http_status: 403
+    cause: "The merchant account does not have permission for this API or flow."
+    resolution: >
+      Contact your PhonePe account manager to enable the required permission
+      (Custom Checkout, Payment Links, AutoPay, etc.).
+
+  INTERNAL_SERVER_ERROR:
+    http_status: 500
+    cause: "Transient server error on PhonePe's side."
+    resolution: >
+      Retry after a short delay (exponential backoff recommended).
+      If persistent, contact PhonePe PG support with the request details and timestamp.
+
+  ORDER_ALREADY_EXISTS:
+    http_status: 400
+    cause: "A payment order with the same merchantOrderId already exists."
+    resolution: >
+      merchantOrderId must be unique per transaction. Generate a new unique ID for each
+      payment attempt.
+
+  REFUND_AMOUNT_EXCEEDS_ORIGINAL:
+    http_status: 400
+    cause: "Refund amount is greater than the original transaction amount."
+    resolution: >
+      Ensure the refund amount (in paisa) does not exceed the original order amount.
+      For partial refunds, track the cumulative refunded amount.
+
+  SUBSCRIPTION_NOT_FOUND:
+    http_status: 404
+    cause: "The provided merchantSubscriptionId does not exist."
+    resolution: >
+      Verify the merchantSubscriptionId used during subscription setup.
+
+# ──────────────────────────────────────────────────────────────
+# API QUICK REFERENCE
+# ──────────────────────────────────────────────────────────────
+# Curated mapping of common tasks to API endpoints.
+# Answers "what API do I use to do X?" questions instantly.
+# ──────────────────────────────────────────────────────────────
+api_quick_reference:
+
+  - task: "Get OAuth access token"
+    method: POST
+    endpoint: "/v1/oauth/token"
+    products: [all]
+    doc_section: "website/standard-checkout/authorization"
+
+  - task: "Create Standard Checkout payment order"
+    method: POST
+    endpoint: "/checkout/v2/pay"
+    products: [standard_checkout]
+    doc_section: "website/standard-checkout/create-payment"
+
+  - task: "Create Custom Checkout UPI QR payment"
+    method: POST
+    endpoint: "/payments/v2/pay"
+    payload_note: "paymentMode.type = UPI_QR"
+    products: [custom_checkout]
+    doc_section: "custom-checkout-v2/pay/upi-qr"
+
+  - task: "Create Custom Checkout UPI Intent payment"
+    method: POST
+    endpoint: "/payments/v2/pay"
+    payload_note: "paymentMode.type = UPI_INTENT"
+    products: [custom_checkout]
+    doc_section: "custom-checkout-v2/pay/upi-intent"
+
+  - task: "Create Custom Checkout UPI Collect payment"
+    method: POST
+    endpoint: "/payments/v2/pay"
+    payload_note: "paymentMode.type = UPI_COLLECT with vpa field"
+    products: [custom_checkout]
+    doc_section: "custom-checkout-v2/pay/upi-intent"
+
+  - task: "Check order / payment status"
+    method: GET
+    endpoint: "/checkout/v2/order/{merchantOrderId}/status"
+    products: [standard_checkout, custom_checkout, payment_links]
+    doc_section: "website/standard-checkout/order-status"
+
+  - task: "Check transaction status"
+    method: GET
+    endpoint: "/payments/v2/transaction/{transactionId}/status"
+    products: [custom_checkout]
+    doc_section: "custom-checkout-v2/order-status"
+
+  - task: "Create Payment Link"
+    method: POST
+    endpoint: "/paylinks/v1/pay"
+    products: [payment_links]
+    doc_section: "payment-links/create"
+
+  - task: "Check Payment Link status"
+    method: GET
+    endpoint: "/paylinks/v1/{merchantOrderId}/status"
+    products: [payment_links]
+    doc_section: "payment-links/status"
+
+  - task: "Cancel Payment Link"
+    method: POST
+    endpoint: "/paylinks/v1/{merchantOrderId}/cancel"
+    products: [payment_links]
+    doc_section: "payment-links/cancel"
+
+  - task: "Resend Payment Link notification"
+    method: POST
+    endpoint: "/paylinks/v1/notify"
+    products: [payment_links]
+    doc_section: "payment-links/notify"
+
+  - task: "Initiate refund"
+    method: POST
+    endpoint: "/payments/v2/refund"
+    products: [standard_checkout, custom_checkout, payment_links]
+    doc_section: "website/standard-checkout/refund"
+
+  - task: "Check refund status"
+    method: GET
+    endpoint: "/payments/v2/refund/{merchantRefundId}/status"
+    products: [standard_checkout, custom_checkout, payment_links]
+    doc_section: "website/standard-checkout/refund"
+
+  - task: "Setup AutoPay subscription mandate"
+    method: POST
+    endpoint: "/payments/v2/subscription/setup"
+    products: [autopay_standard, autopay_custom]
+    doc_section: "autopay/api/subscription-setup"
+
+  - task: "Notify before AutoPay deduction"
+    method: POST
+    endpoint: "/payments/v2/subscription/notify"
+    products: [autopay_standard, autopay_custom]
+    doc_section: "autopay/api/redemption-notify"
+
+  - task: "Execute AutoPay deduction (redeem)"
+    method: POST
+    endpoint: "/payments/v2/subscription/redeem"
+    products: [autopay_standard, autopay_custom]
+    doc_section: "autopay/api/redemption-execute"
+
+  - task: "Check subscription / mandate status"
+    method: GET
+    endpoint: "/payments/v2/subscription/{merchantSubscriptionId}/status"
+    products: [autopay_standard, autopay_custom]
+    doc_section: "autopay/api/subscription-status"
+
+  - task: "Cancel AutoPay subscription"
+    method: POST
+    endpoint: "/payments/v2/subscription/{merchantSubscriptionId}/cancel"
+    products: [autopay_standard, autopay_custom]
+    doc_section: "autopay/api/subscription-cancel"
+
+  - task: "Fetch chargeback dispute"
+    method: GET
+    endpoint: "/chargeback/fetch-dispute"
+    products: [chargeback_api]
+    doc_section: "chargeback/fetch-dispute"
+
+  - task: "List all chargeback disputes"
+    method: GET
+    endpoint: "/chargeback/fetch-list-of-disputes"
+    products: [chargeback_api]
+    doc_section: "chargeback/fetch-list"
+
+  - task: "Accept chargeback dispute"
+    method: POST
+    endpoint: "/chargeback/accept-dispute"
+    products: [chargeback_api]
+    doc_section: "chargeback/accept"
+
+  - task: "Contest chargeback dispute"
+    method: POST
+    endpoint: "/chargeback/contest-dispute"
+    products: [chargeback_api]
+    doc_section: "chargeback/contest"
+
+  - task: "Check PG health / UPI availability"
+    method: GET
+    endpoint: "/pg-health-check/health-check"
+    products: [pg_health_check]
+    doc_section: "health-check/health-check-api"
+
+  - task: "Validate UPI VPA address"
+    method: POST
+    endpoint: "/payments/v2/vpa/validate"
+    products: [custom_checkout, autopay_custom]
+    doc_section: "custom-checkout-v2/pay/upi-address-validate"
+
+  - task: "Get settlement by date range"
+    method: GET
+    endpoint: "/settlement/date-range"
+    products: [settlement_api]
+    doc_section: "settlement/date-range-ids"

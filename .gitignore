@@ -1,0 +1,53 @@
+# Secrets — never commit
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+wheels/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE — personal settings excluded, but .vscode/mcp.json IS committed (workspace MCP config)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+*.log.*
+
+# SQLite WAL / shared-memory files (transient, never commit)
+*.db-shm
+*.db-wal
+
+# Generated SQLite index — rebuilt by scripts/build_index.py at release time.
+# The wheel packages it via [tool.hatch.build.targets.wheel.force-include].
+src/phonepe_docs_mcp/knowledge/doc_index.db
+
+# Project-root knowledge/ is build output from scripts/build_index.py
+# The bundled index lives in src/phonepe_docs_mcp/knowledge/ instead
+/knowledge/
