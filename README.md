@@ -82,25 +82,6 @@ The SQLite index is **pre-built and shipped inside the PyPI wheel**. Every `pip 
 
 ---
 
-## Quick start — 30 seconds
-
-### Using `uvx` (recommended — no install, always latest)
-
-```bash
-uvx phonepe-pg-docs-mcp
-```
-
-### Using `pip`
-
-```bash
-pip install phonepe-pg-docs-mcp
-phonepe-pg-docs
-```
-
-**Requirements:** Python 3.10 or higher. No API keys needed.
-
----
-
 ## Set up in your AI client
 
 Pick your client and add the following config. Restart the client after saving.
@@ -116,7 +97,7 @@ Pick your client and add the following config. Restart the client after saving.
   "mcpServers": {
     "phonepe-pg-docs": {
       "command": "uvx",
-      "args": ["phonepe-pg-docs-mcp"]
+      "args": ["--from", "phonepe-pg-docs-mcp", "phonepe-pg-docs"]
     }
   }
 }
@@ -131,7 +112,7 @@ Pick your client and add the following config. Restart the client after saving.
   "mcpServers": {
     "phonepe-pg-docs": {
       "command": "uvx",
-      "args": ["phonepe-pg-docs-mcp"]
+      "args": ["--from", "phonepe-pg-docs-mcp", "phonepe-pg-docs"]
     }
   }
 }
@@ -139,7 +120,8 @@ Pick your client and add the following config. Restart the client after saving.
 
 ### GitHub Copilot (VS Code)
 
-**Config file:** `.vscode/mcp.json` in your workspace
+**Config file (workspace):** `.vscode/mcp.json`  
+**Config file (user-level):** `~/.copilot/mcp-config.json`
 
 ```json
 {
@@ -147,7 +129,7 @@ Pick your client and add the following config. Restart the client after saving.
     "phonepe-pg-docs": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["phonepe-pg-docs-mcp"]
+      "args": ["--from", "phonepe-pg-docs-mcp", "phonepe-pg-docs"]
     }
   }
 }
@@ -162,7 +144,7 @@ Pick your client and add the following config. Restart the client after saving.
   "mcpServers": {
     "phonepe-pg-docs": {
       "command": "uvx",
-      "args": ["phonepe-pg-docs-mcp"]
+      "args": ["--from", "phonepe-pg-docs-mcp", "phonepe-pg-docs"]
     }
   }
 }
@@ -175,6 +157,25 @@ Replace the `command`/`args` block in any config above with:
 ```json
 "command": "phonepe-pg-docs",
 "args": []
+```
+
+---
+
+## Installation
+
+**Requirements:** Python 3.10 or higher. No API keys needed.
+
+### Using `uvx`
+
+```bash
+uvx --from phonepe-pg-docs-mcp phonepe-pg-docs
+```
+
+### Using `pip`
+
+```bash
+pip install phonepe-pg-docs-mcp
+phonepe-pg-docs
 ```
 
 ---
@@ -258,10 +259,13 @@ Product descriptions, feature flags, FAQs, and error code explanations live in
 ```bash
 git clone https://github.com/PhonePe/phonepe-pg-docs-mcp.git
 cd phonepe-pg-docs-mcp
-pip install -e ".[dev]"
+pip install -e ".[test]"
 
 # Build the doc index (required once before first run)
 python scripts/build_index.py
+
+# Run tests
+pytest
 
 # Start the MCP server
 phonepe-pg-docs
