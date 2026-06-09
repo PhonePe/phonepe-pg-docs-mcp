@@ -1,5 +1,20 @@
 # Changelog — phonepe-pg-docs-mcp
 
+## [1.0.1] — 2026-06-09
+
+### Fixed
+- Filter bare newline / whitespace-only lines from stdin before the MCP
+  JSON-RPC parser sees them, eliminating `Invalid JSON: EOF` errors sent
+  by some clients (Claude Desktop, VS Code, etc.) as keepalive lines
+- Corrected `uvx` invocation in README and mcp-config examples from
+  `uvx phonepe-pg-docs-mcp` to `uvx --from phonepe-pg-docs-mcp phonepe-pg-docs`
+
+### Changed
+- Added `~/.copilot/mcp-config.json` as an alternate config path for GitHub Copilot
+- Fixed dev install command in README from `.[dev]` to `.[test]`
+
+---
+
 ## [1.0.0] — 2025-05-12
 
 ### Added
