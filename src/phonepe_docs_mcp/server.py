@@ -38,6 +38,10 @@ Optional env var:
 
 from __future__ import annotations
 
+import os
+import sys
+import threading
+from io import TextIOWrapper
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -72,8 +76,74 @@ register_doc_tools(mcp)
 register_kb_tools(mcp)
 
 
+def _filter_stdin_empty_lines() -> None:
+    """Drop bare newline / whitespace-only lines from stdin before the MCP
+    JSON-RPC parser sees them.
+
+    Some MCP clients (Claude Desktop, VS Code Extension, etc.) send empty
+    lines between JSON-RPC messages as keepalives or line-termination
+    artefacts.  The mcp library's stdio transport tries to parse every line as
+    JSON and logs ``Invalid JSON: EOF`` validation errors for those lines.
+    Filtering them out here — before the library's transport is created —
+    prevents that noise entirely.
+
+    A daemon thread forwards non-empty lines from the original stdin fd
+    through an OS pipe.  fd 0 is then redirected to the read-end of that pipe
+    so all downstream readers (asyncio / anyio) transparently receive a clean
+    byte stream.
+    """
+    try:
+        original_stdin_fd = sys.stdin.fileno()
+    except Exception:
+        return  # stdin is not a real file descriptor — nothing to filter
+
+    pipe_r_fd, pipe_w_fd = os.pipe()
+
+    # Preserve a copy of the original stdin fd for the reader thread so it
+    # can keep reading after fd 0 is re-pointed at the pipe.
+    src_fd = os.dup(original_stdin_fd)
+
+    # Redirect fd 0 to the read-end of the pipe.
+    os.dup2(pipe_r_fd, original_stdin_fd)
+    os.close(pipe_r_fd)
+
+    def _forward(src_fd: int, dst_fd: int) -> None:
+        remainder = b""
+        try:
+            with os.fdopen(src_fd, "rb", buffering=0) as src, \
+                    os.fdopen(dst_fd, "wb", buffering=0) as dst:
+                while True:
+                    chunk = src.read(4096)
+                    if not chunk:           # EOF
+                        if remainder.strip():
+                            dst.write(remainder)
+                        break
+                    remainder += chunk
+                    while b"\n" in remainder:
+                        line, remainder = remainder.split(b"\n", 1)
+                        if line.strip():    # skip empty / whitespace-only lines
+                            dst.write(line + b"\n")
+        except Exception:
+            pass  # never let a filter error crash the server
+
+    threading.Thread(
+        target=_forward,
+        args=(src_fd, pipe_w_fd),
+        daemon=True,
+        name="stdin-empty-line-filter",
+    ).start()
+
+    # Re-attach sys.stdin to fd 0, which now points at the clean pipe.
+    sys.stdin = TextIOWrapper(
+        open(original_stdin_fd, "rb"),
+        encoding="utf-8",
+        errors="replace",
+    )
+
+
 def main() -> None:
     """Run the MCP server over stdio."""
+    _filter_stdin_empty_lines()
     mcp.run(transport="stdio")
 
 
