@@ -2,6 +2,19 @@ name: Manual Release to PyPI
 
 on:
   workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
 
 jobs:
   release:
@@ -9,6 +22,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
@@ -20,6 +35,38 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine build
           pip install httpx pyyaml beautifulsoup4
+
+      - name: Bump version in pyproject.toml
+        id: bump
+        run: |
+          CURRENT=$(python -c "
+          import re
+          with open('pyproject.toml') as f:
+              content = f.read()
+          print(re.search(r'^version\s*=\s*\"([^\"]+)\"', content, re.MULTILINE).group(1))
+          ")
+          NEW=$(python -c "
+          parts = '$CURRENT'.split('.')
+          bump = '${{ github.event.inputs.bump_type }}'
+          if bump == 'major':
+              parts = [str(int(parts[0]) + 1), '0', '0']
+          elif bump == 'minor':
+              parts = [parts[0], str(int(parts[1]) + 1), '0']
+          else:
+              parts = [parts[0], parts[1], str(int(parts[2]) + 1)]
+          print('.'.join(parts))
+          ")
+          sed -i "s/^version = \"$CURRENT\"/version = \"$NEW\"/" pyproject.toml
+          echo "new_version=$NEW" >> $GITHUB_OUTPUT
+          echo "Bumped $CURRENT → $NEW"
+
+      - name: Commit and push version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml
+          git commit -m "chore: release v${{ steps.bump.outputs.new_version }}"
+          git push origin main
 
       - name: Build documentation index
         run: |
