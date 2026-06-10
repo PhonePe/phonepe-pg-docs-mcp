@@ -4,14 +4,13 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/phonepe-pg-docs-mcp)](https://pypi.org/project/phonepe-pg-docs-mcp/)
 [![Python](https://img.shields.io/pypi/pyversions/phonepe-pg-docs-mcp)](https://pypi.org/project/phonepe-pg-docs-mcp/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server published by **PhonePe** that gives any AI agent — Claude, GPT, Cursor, Copilot, Windsurf — instant access to PhonePe Payment Gateway developer documentation and a curated knowledge base.
 
 Integrate PhonePe PG faster by letting your AI coding assistant answer questions directly from the official docs, without leaving your IDE.
 
-> **No PhonePe credentials required.** This MCP is entirely read-only.  
-> For live payment API calls (initiate payments, refunds, payment links), see the companion package [`phonepe-pg-payments-mcp`](https://pypi.org/project/phonepe-pg-payments-mcp/).
+> **No PhonePe credentials required.** This MCP is entirely read-only.
 
 ---
 
@@ -289,26 +288,12 @@ Every `pip install phonepe-pg-docs-mcp` always delivers the latest pre-indexed d
 
 ---
 
-## Companion MCP — live payment API calls
-
-To actually initiate payments, create payment links, process refunds, or poll order status from your AI agent:
-
-```bash
-uvx phonepe-pg-payments-mcp
-```
-
-Requires: `PHONEPE_CLIENT_ID`, `PHONEPE_CLIENT_SECRET`, `PHONEPE_CLIENT_VERSION`  
-PyPI: [phonepe-pg-payments-mcp](https://pypi.org/project/phonepe-pg-payments-mcp/)
-
----
-
 ## Official documentation
 
 | Resource | Link |
 |----------|------|
 | PhonePe PG Developer Portal | https://developer.phonepe.com |
 | Standard Checkout | https://developer.phonepe.com/phonepe-payment-gateway/pg-v2-standard-checkout-integration |
-| Custom Checkout | https://developer.phonepe.com/payment-gateway-custom-checkout/custom-api-integration/introduction-api-integration-custom |
 | AutoPay / Recurring | https://developer.phonepe.com/payment-gateway/autopay/api-integration/introduction |
 | Payment Links | https://developer.phonepe.com/payment-gateway/payment-links/introduction |
 | Chargeback APIs | https://developer.phonepe.com/chargeback |
