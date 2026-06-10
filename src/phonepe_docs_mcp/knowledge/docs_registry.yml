@@ -55,7 +55,8 @@ sections:
     # ── E-commerce Plugins ───────────────────────────────────
     plugins/woocommerce: /payment-gateway/e-commerce-plugins/woocommerce
     plugins/shopify: /payment-gateway/e-commerce-plugins/shopify
-    # plugins/magento: removed — URL returns 404
+    plugins/magento: /payment-gateway/e-commerce-plugins/magento
+    plugins/bagisto: /payment-gateway/e-commerce-plugins/bagisto
 
     # ── Payment Links ────────────────────────────────────────
     payment-links/introduction: /payment-gateway/payment-links/introduction
@@ -349,6 +350,10 @@ sections:
 
     # ── Aggregator APIs ───────────────────────────────────────
     aggregator/overview: /api-for-aggregators
+
+    # ── Common Issue and Error Code Details ───────────────────────────────────────
+    error-codes: /payment-gateway/error-codes
+    common-issues: /payment-gateway/e-commerce-plugins/plugin-troubleshooting
 
     # ─────────────────────────────────────────────────────────
     # ADD NEW SECTIONS BELOW THIS LINE
