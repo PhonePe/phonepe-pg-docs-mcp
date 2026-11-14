@@ -73,6 +73,11 @@ products:
     doc_sections:
       - payment-links/introduction
       - payment-links/create
+      - payment-links/dashboard/create
+      - payment-links/dashboard/reshare
+      - payment-links/dashboard/cancel
+      - payment-links/dashboard/refund
+      - payment-links/dashboard/bulk-create
 
   autopay_standard:
     name: "AutoPay — Standard Checkout"
@@ -117,6 +122,54 @@ products:
       - payment-links/authorization
       - payment-links/create
       - payment-links/status
+      - payment-links/reminders
+
+  autopay_payment_links:
+    name: "AutoPay — Payment Links"
+    status: live
+    permission_required: true
+    permission_name: "AutoPay + Payment Links"
+    description: >
+      UPI Autopay mandate setup via a shareable payment link. Covers subscription
+      setup, notify and execute redemption, pause/unpause, revoke, cancel, refund,
+      webhooks and sandbox setup.
+    doc_sections:
+      - autopay/paylinks/introduction
+      - autopay/paylinks/authorization
+      - autopay/paylinks/subscription-setup
+      - autopay/paylinks/subscription-order-status
+      - autopay/paylinks/subscription-status
+      - autopay/paylinks/notify-redemption
+      - autopay/paylinks/notification-status
+      - autopay/paylinks/execute-redemption
+      - autopay/paylinks/redemption-order-status
+      - autopay/paylinks/subscription-cancel
+      - autopay/paylinks/pause-unpause-subscription
+      - autopay/paylinks/revoke-subscription
+      - autopay/paylinks/initiate-refund
+      - autopay/paylinks/webhook-handling
+      - autopay/paylinks/sandbox-setup
+      - autopay/paylinks/links-reminders
+
+  corporate_netbanking:
+    name: "Corporate Netbanking"
+    status: live
+    permission_required: true
+    permission_name: "Corporate Netbanking"
+    description: >
+      Corporate netbanking payments support for business bank accounts.
+    doc_sections:
+      - corporate-netbanking
+
+  one_time_mandate:
+    name: "One Time Mandate"
+    status: live
+    permission_required: true
+    permission_name: "One Time Mandate"
+    description: >
+      One-time UPI mandate (block funds and debit later) flow.
+    doc_sections:
+      - one-time-mandate/introduction
 
   split_settlement:
     name: "Split Settlement"
@@ -221,6 +274,19 @@ products:
       and initiating payments with tokenised cards.
     doc_sections:
       - android-native-sdk/overview
+      - native-sdks/android/introduction
+      - native-sdks/android/authorization
+      - native-sdks/android/fetch-saved-instruments
+      - native-sdks/android/create-order
+      - native-sdks/android/sdk-setup
+      - native-sdks/android/get-user-instruments
+      - native-sdks/android/initiate-payment
+      - native-sdks/android/order-status
+      - native-sdks/android/webhook
+      - native-sdks/android/refund
+      - native-sdks/android/refund-status
+      - native-sdks/android/uat-sandbox
+      - native-sdks/android/go-live
 
   ios_native_sdk:
     name: "iOS Native SDK (Payment Options)"
@@ -232,6 +298,19 @@ products:
       a merchant iOS app.
     doc_sections:
       - ios-native-sdk/overview
+      - native-sdks/ios/introduction
+      - native-sdks/ios/authorization
+      - native-sdks/ios/fetch-saved-instruments
+      - native-sdks/ios/create-order
+      - native-sdks/ios/sdk-setup
+      - native-sdks/ios/get-user-instruments
+      - native-sdks/ios/initiate-payment
+      - native-sdks/ios/order-status
+      - native-sdks/ios/webhook
+      - native-sdks/ios/refund
+      - native-sdks/ios/refund-status
+      - native-sdks/ios/uat-sandbox
+      - native-sdks/ios/go-live
 
   enach:
     name: "eNACH"
