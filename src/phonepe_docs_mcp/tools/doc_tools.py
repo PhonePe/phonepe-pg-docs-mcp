@@ -45,6 +45,7 @@ def register_doc_tools(mcp: FastMCP) -> None:
           overview              - High-level overview
           website/...           - Website (Standard Checkout) integration
           autopay/...           - UPI AutoPay / recurring payments
+          autopay/paylinks/     - AutoPay via Payment Links
           payment-links/...     - Payment Links
           plugins/...           - E-commerce plugins (WooCommerce, Shopify)
           sdk/backend-standard/ - Backend SDKs (Java, Python, Node.js, PHP)
@@ -52,6 +53,7 @@ def register_doc_tools(mcp: FastMCP) -> None:
           custom-checkout-v2/   - Custom Checkout V2 (API, mobile SDKs, backend SDKs)
           android-native-sdk/   - Android Native SDK (payment options)
           ios-native-sdk/       - iOS Native SDK (payment options)
+          native-sdks/          - Native SDKs, new paths (android/, ios/)
           health-check/         - PG Health Check APIs
           tsp/                  - TSP (Third-Party Service Provider) integration
           settlement/           - Settlement APIs
@@ -60,6 +62,9 @@ def register_doc_tools(mcp: FastMCP) -> None:
           native-otp/           - Native OTP APIs
           tpv/                  - Third Party Validation (TPV)
           aggregator/           - API for Aggregators
+          one-time-mandate/     - One Time Mandate
+          corporate-netbanking  - Corporate Netbanking
+          legacy/               - Legacy pages still live (old-docs, v4 debit, webviews)
         """
         sections = doc_service.list_sections()
         body = "\n- ".join(sections)

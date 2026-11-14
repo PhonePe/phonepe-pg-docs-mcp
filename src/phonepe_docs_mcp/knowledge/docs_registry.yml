@@ -19,12 +19,9 @@
 #
 # BASE URL: https://developer.phonepe.com
 #
-# SKIPPED (old/deprecated, DO NOT re-add):
-#   /old-docs/*, /v4-debit-sdkless, /upi-collect-new-update,
-#   /ios-container-for-sdk-integration, /android-pg-sdk-setup,
-#   /enable-upi-payments-within-an-ios-webview,
-#   /enable-upi-payments-within-an-android-webview
-#   All #nav-... anchor fragments (same page as base URL)
+# NOTE: former SKIPPED legacy pages (/old-docs/*, /v4-debit-sdkless, etc.)
+#   are live and now included under the legacy/ keys.
+#   All #nav-... anchor fragments are same page as base URL (skip).
 # ============================================================
 
 sections:
@@ -287,6 +284,82 @@ sections:
     ios-native-sdk/refund-status: /ios-native-sdk/refund-status
     ios-native-sdk/uat-sandbox: /ios-native-sdk/uat-sandbox
     ios-native-sdk/go-live: /ios-native-sdk/how-to-go-live
+
+    # ── Native SDKs (new /payment-gateway/native-sdks/ paths) ──
+    native-sdks/android/introduction: /payment-gateway/native-sdks/android-native-sdk/introduction
+    native-sdks/android/authorization: /payment-gateway/native-sdks/android-native-sdk/authorization
+    native-sdks/android/fetch-saved-instruments: /payment-gateway/native-sdks/android-native-sdk/fetch-saved-instruments-token-api
+    native-sdks/android/create-order: /payment-gateway/native-sdks/android-native-sdk/create-order
+    native-sdks/android/sdk-setup: /payment-gateway/native-sdks/android-native-sdk/sdk-setup
+    native-sdks/android/get-user-instruments: /payment-gateway/native-sdks/android-native-sdk/get-user-instruments
+    native-sdks/android/initiate-payment: /payment-gateway/native-sdks/android-native-sdk/initiate-payment
+    native-sdks/android/order-status: /payment-gateway/native-sdks/android-native-sdk/order-status
+    native-sdks/android/webhook: /payment-gateway/native-sdks/android-native-sdk/webhooks-handling
+    native-sdks/android/refund: /payment-gateway/native-sdks/android-native-sdk/refund
+    native-sdks/android/refund-status: /payment-gateway/native-sdks/android-native-sdk/refund-status
+    native-sdks/android/uat-sandbox: /payment-gateway/native-sdks/android-native-sdk/uat-sandbox
+    native-sdks/android/go-live: /payment-gateway/native-sdks/android-native-sdk/how-to-go-live
+    native-sdks/ios/introduction: /payment-gateway/native-sdks/ios-native-sdk/introduction
+    native-sdks/ios/authorization: /payment-gateway/native-sdks/ios-native-sdk/authorization
+    native-sdks/ios/fetch-saved-instruments: /payment-gateway/native-sdks/ios-native-sdk/fetch-saved-instruments-token-api
+    native-sdks/ios/create-order: /payment-gateway/native-sdks/ios-native-sdk/create-order
+    native-sdks/ios/sdk-setup: /payment-gateway/native-sdks/ios-native-sdk/sdk-setup
+    native-sdks/ios/get-user-instruments: /payment-gateway/native-sdks/ios-native-sdk/get-user-instruments
+    native-sdks/ios/initiate-payment: /payment-gateway/native-sdks/ios-native-sdk/initiate-payment
+    native-sdks/ios/order-status: /payment-gateway/native-sdks/ios-native-sdk/order-status
+    native-sdks/ios/webhook: /payment-gateway/native-sdks/ios-native-sdk/webhooks-handling
+    native-sdks/ios/refund: /payment-gateway/native-sdks/ios-native-sdk/refund
+    native-sdks/ios/refund-status: /payment-gateway/native-sdks/ios-native-sdk/refund-status
+    native-sdks/ios/uat-sandbox: /payment-gateway/native-sdks/ios-native-sdk/uat-sandbox
+    native-sdks/ios/go-live: /payment-gateway/native-sdks/ios-native-sdk/how-to-go-live
+
+    # ── Payment Links — Dashboard & Reminders ──
+    payment-links/dashboard/create: /payment-gateway/payment-links/dashboard/create-payment-link
+    payment-links/dashboard/reshare: /payment-gateway/payment-links/dashboard/reshare-payment-link
+    payment-links/dashboard/cancel: /payment-gateway/payment-links/dashboard/cancel-payment-link
+    payment-links/dashboard/refund: /payment-gateway/payment-links/dashboard/initiate-refund
+    payment-links/dashboard/bulk-create: /payment-gateway/payment-links/dashboard/create-payment-links-in-bulk
+    payment-links/reminders: /payment-gateway/payment-links/api-reference-payment-links/links-reminders
+
+    # ── AutoPay — Payment Links API Integration ──
+    autopay/paylinks/introduction: /payment-gateway/autopay/paylinks-autopay/api-integration/introduction
+    autopay/paylinks/authorization: /payment-gateway/autopay/paylinks-autopay/api-integration/authorization
+    autopay/paylinks/subscription-setup: /payment-gateway/autopay/paylinks-autopay/api-integration/subscription-setup
+    autopay/paylinks/subscription-order-status: /payment-gateway/autopay/paylinks-autopay/api-integration/subscription-order-status
+    autopay/paylinks/subscription-status: /payment-gateway/autopay/paylinks-autopay/api-integration/subscription-status
+    autopay/paylinks/notify-redemption: /payment-gateway/autopay/paylinks-autopay/api-integration/notify-redemption
+    autopay/paylinks/notification-status: /payment-gateway/autopay/paylinks-autopay/api-integration/notification-status
+    autopay/paylinks/execute-redemption: /payment-gateway/autopay/paylinks-autopay/api-integration/execute-redemption
+    autopay/paylinks/redemption-order-status: /payment-gateway/autopay/paylinks-autopay/api-integration/redemption-order-status
+    autopay/paylinks/subscription-cancel: /payment-gateway/autopay/paylinks-autopay/api-integration/subscription-cancel
+    autopay/paylinks/pause-unpause-subscription: /payment-gateway/autopay/paylinks-autopay/api-integration/pause-unpause-subscription
+    autopay/paylinks/revoke-subscription: /payment-gateway/autopay/paylinks-autopay/api-integration/revoke-subscription
+    autopay/paylinks/initiate-refund: /payment-gateway/autopay/paylinks-autopay/api-integration/initiate-refund
+    autopay/paylinks/webhook-handling: /payment-gateway/autopay/paylinks-autopay/api-integration/webhook-handling
+    autopay/paylinks/sandbox-setup: /payment-gateway/autopay/paylinks-autopay/api-integration/sandbox-setup
+    autopay/paylinks/links-reminders: /payment-gateway/autopay/paylinks-autopay/api-integration/links-reminders
+
+    website/standard-checkout/create-payment/initiate-payment: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment/initiate-payment
+    website/standard-checkout/create-payment/configure-payment-modes: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment/configure-payment-modes
+    website/standard-checkout/create-payment/payment-mode: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment/payment-mode
+    website/standard-checkout/create-payment/payment-modes-v1: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment/payment-modes-v1
+    website/standard-checkout/create-payment/supported-values: /payment-gateway/website-integration/standard-checkout/api-integration/api-reference/create-payment/supported-values
+
+    custom-checkout-v2/pay/wallet: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/wallet
+    custom-checkout-v2/pay/emi: /payment-gateway-custom-checkout/custom-api-integration/initiate-payment/emi
+
+    corporate-netbanking: /corporate-netbanking
+    one-time-mandate/introduction: /payment-gateway/one-time-mandate/introduction
+
+    legacy/ios-container-sdk: /ios-container-for-sdk-integration
+    legacy/android-pg-sdk-setup: /android-pg-sdk-setup
+    legacy/webview/ios-upi: /enable-upi-payments-within-an-ios-webview
+    legacy/webview/android-upi: /enable-upi-payments-within-an-android-webview
+    legacy/v4-debit-sdkless: /v4-debit-sdkless
+    legacy/upi-collect-new-update: /upi-collect-new-update
+    legacy/old-docs/accept-payments-v3: /old-docs/accept-payments-v3
+    legacy/old-docs/accept-payments-v4: /old-docs/accept-payments-v4
+    legacy/old-docs/v4-debit: /old-docs/v4-debit
 
     # ── PG Health Check ───────────────────────────────────────
     health-check/overview: /pg-health-check
